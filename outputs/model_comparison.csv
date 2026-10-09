@@ -1,0 +1,9 @@
+model,setting,threshold,accuracy,precision,recall,f1,f2,roc_auc,pr_auc,false_negative_rate,false_positive_rate,tn,fp,fn,tp,selected
+Logistic Regression,test @ 0.50,0.5,0.9398,0.9282,0.9533,0.9406,0.9482,0.9927,0.9929,0.0467,0.0738,2222,177,112,2287,False
+Logistic Regression,test @ tuned thr,0.4254,0.945,0.9175,0.9779,0.9467,0.9652,0.9927,0.9929,0.0221,0.088,2188,211,53,2346,False
+Decision Tree,test @ 0.50,0.5,0.9398,0.9407,0.9387,0.9397,0.9391,0.989,0.9877,0.0613,0.0592,2257,142,147,2252,False
+Decision Tree,test @ tuned thr,0.4933,0.9398,0.9407,0.9387,0.9397,0.9391,0.989,0.9877,0.0613,0.0592,2257,142,147,2252,False
+Random Forest,test @ 0.50,0.5,0.9421,0.9377,0.9471,0.9423,0.9452,0.9931,0.9932,0.0529,0.0629,2248,151,127,2272,True
+Random Forest,test @ tuned thr,0.4035,0.945,0.9185,0.9767,0.9467,0.9644,0.9931,0.9932,0.0233,0.0867,2191,208,56,2343,True
+Gradient Boosting (sklearn HistGB),test @ 0.50,0.5,0.936,0.938,0.9337,0.9359,0.9346,0.9923,0.9926,0.0663,0.0617,2251,148,159,2240,False
+Gradient Boosting (sklearn HistGB),test @ tuned thr,0.4101,0.9396,0.92,0.9629,0.9409,0.954,0.9923,0.9926,0.0371,0.0838,2198,201,89,2310,False

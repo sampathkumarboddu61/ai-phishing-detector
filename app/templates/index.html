@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phishing URL Detector</title>
+  <meta name="description" content="Machine-learning phishing URL detector. URLs are analysed as text only.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <div class="brand">
+        <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Zm0 2.2 6 2.3V11c0 4-2.6 7.6-6 9-3.4-1.4-6-5-6-9V6.5l6-2.3Z"/><path d="m10.6 14.6-2.4-2.4 1.1-1.1 1.3 1.3 3.6-3.6 1.1 1.1-4.7 4.7Z"/></svg>
+        <span>Phishing URL Detector</span>
+      </div>
+      <span id="model-badge" class="muted small" hidden></span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card hero" aria-labelledby="page-title">
+      <h1 id="page-title">Is this link safe to open?</h1>
+      <p class="lead">Paste a URL. A machine-learning model scores it from the text of the address alone &mdash; the page itself is never opened.</p>
+
+      <form id="scan-form" novalidate>
+        <label for="url-input" class="sr-only">URL to analyse</label>
+        <input id="url-input" type="text" inputmode="url" autocomplete="off" autocapitalize="off"
+               spellcheck="false" maxlength="2048" placeholder="https://example.com/login" required>
+        <button type="submit" id="scan-btn" class="btn">Analyze</button>
+      </form>
+
+      <div class="examples">
+        <span class="muted small">Try an example:</span>
+        <button type="button" class="chip" data-url="https://www.wikipedia.org/wiki/Machine_learning">Encyclopedia article</button>
+        <button type="button" class="chip" data-url="http://paypal.com.secure-login-verify.xyz/webscr?cmd=_login">Brand look-alike</button>
+        <button type="button" class="chip" data-url="http://192.168.4.7:8080/paypal/login.php">IP address host</button>
+        <button type="button" class="chip" data-url="https://tinyurl.com/a1b2c3">Shortened link</button>
+      </div>
+
+      <label class="check" id="live-wrap" hidden>
+        <input type="checkbox" id="live-input">
+        <span>Also look up redirects and domain age <span class="muted small">(makes a network request to the URL's server)</span></span>
+      </label>
+
+      <p id="error" class="notice notice-error" role="alert" hidden></p>
+    </section>
+
+    <section id="result" class="card result" aria-live="polite" aria-labelledby="verdict-title" hidden>
+      <div class="verdict-row">
+        <span id="verdict-badge" class="badge"></span>
+        <h2 id="verdict-title" class="verdict-title"></h2>
+      </div>
+
+      <code id="result-url" class="url-box"></code>
+
+      <div class="meter-block">
+        <div class="meter-labels">
+          <span>Risk score</span>
+          <strong id="score-text"></strong>
+        </div>
+        <div class="meter" role="img" id="meter" aria-label="Risk score meter">
+          <div id="meter-fill" class="meter-fill"></div>
+          <div id="meter-threshold" class="meter-threshold" title="Decision threshold"></div>
+        </div>
+        <p class="muted small" id="threshold-text"></p>
+      </div>
+
+      <ul id="warnings" class="notice-list" hidden></ul>
+
+      <h3>What looks unusual</h3>
+      <ul id="indicators" class="indicator-list"></ul>
+
+      <div id="live-block" hidden>
+        <h3>Network lookups</h3>
+        <dl id="live-list" class="kv"></dl>
+      </div>
+
+      <details class="features">
+        <summary>All extracted features</summary>
+        <table class="table">
+          <thead><tr><th scope="col">Feature</th><th scope="col" class="num">Value</th></tr></thead>
+          <tbody id="feature-rows"></tbody>
+        </table>
+      </details>
+
+      <p class="muted small disclaimer">The score is a model output, not a calibrated probability, and no detector is perfect. When in doubt, do not enter credentials &mdash; go to the site by typing its known address yourself.</p>
+    </section>
+
+    <div class="grid">
+      <section class="card" aria-labelledby="stats-title">
+        <h2 id="stats-title">Scans so far</h2>
+        <div class="stats">
+          <div class="stat"><span id="stat-total" class="stat-num">0</span><span class="muted small">total</span></div>
+          <div class="stat"><span id="stat-phish" class="stat-num">0</span><span class="muted small">flagged phishing</span></div>
+          <div class="stat"><span id="stat-legit" class="stat-num">0</span><span class="muted small">looked legitimate</span></div>
+        </div>
+      </section>
+
+      <section class="card wide" aria-labelledby="history-title">
+        <h2 id="history-title">Recent scans</h2>
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th scope="col">Time</th><th scope="col">URL</th><th scope="col">Verdict</th><th scope="col" class="num">Score</th></tr></thead>
+            <tbody id="history-rows"></tbody>
+          </table>
+        </div>
+        <p id="history-empty" class="muted small">No scans yet.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap muted small">Educational project. URLs are shown as plain text and never turned into clickable links.</div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>

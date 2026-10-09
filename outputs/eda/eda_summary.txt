@@ -1,0 +1,15 @@
+Rows: 24000
+Class counts: {1: 12000, 0: 12000}
+Missing values in feature matrix: 0
+
+Top 10 features by |correlation with label|:
+brand_in_host_mismatch     0.537
+suspicious_word_count      0.526
+num_hyphens_in_domain      0.391
+suspicious_tld             0.368
+sld_length                 0.357
+suspicious_word_in_host    0.320
+num_underscores           -0.292
+num_query_params          -0.278
+num_dots                   0.246
+num_subdomains            -0.245

@@ -1,0 +1,42 @@
+{
+  "trained_at": "2026-10-09T08:17:33+00:00",
+  "data_source": "SYNTHETIC demo data (not real-world traffic)",
+  "synthetic_data": true,
+  "n_rows": 24000,
+  "n_train": 19202,
+  "n_test": 4798,
+  "target_recall": 0.98,
+  "test_metrics": {
+    "threshold": 0.4035,
+    "accuracy": 0.945,
+    "precision": 0.9185,
+    "recall": 0.9767,
+    "f1": 0.9467,
+    "f2": 0.9644,
+    "roc_auc": 0.9931,
+    "pr_auc": 0.9932,
+    "false_negative_rate": 0.0233,
+    "false_positive_rate": 0.0867,
+    "tn": 2191,
+    "fp": 208,
+    "fn": 56,
+    "tp": 2343
+  },
+  "xgboost_available": false,
+  "versions": {
+    "python": "3.13.16",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5"
+  },
+  "selected_model": "Random Forest",
+  "cleaning": {
+    "rows_in": 24000,
+    "missing_url_or_label": 0,
+    "unparseable_urls": 0,
+    "conflicting_labels": 0,
+    "duplicates_removed": 0,
+    "rows_out": 24000,
+    "phishing_share": 0.5
+  }
+}
